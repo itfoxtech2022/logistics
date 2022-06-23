@@ -24,6 +24,8 @@
       <link href="{{asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
       <!-- Custom Theme Style -->
       <link href="{{asset('assets/build/css/custom.min.css')}}" rel="stylesheet">
+      <!-- style sheet -->
+      <link href="{{asset('assets/build/css/style.css')}}" rel="stylesheet">
    </head>
    
    

@@ -13,8 +13,15 @@
 <div class="right_col" role="main">
    <div class="">
       <div class="page-title">
-         <div class="title_left">
-            <h3>Vehicle Instalments</h3>
+         <div class="">
+            <!-- <h3>Vehicle Instalments</h3> -->
+            <nav aria-label="breadcrumb bg-transparent">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item fs-3">Vehicle Profile</li>
+                  <li class="breadcrumb-item fs-3">Instalment</li>
+                  <li class="breadcrumb-item active" aria-current="page">{{ $vehicle_Data['vehicle_name']  }} - <span>{{ $vehicle_Data['vehicle_number'] }}</span> </li>
+               </ol>
+            </nav>
             <div class="col-sm-12 float-right">
                @if(Session::has('flash_message_error'))
                <div class="alert alert-danger alert-dismissible p-2">
@@ -30,34 +37,16 @@
                @endif
             </div>
          </div>
-         <div class="title_right">
-            <div class="col-md-5 col-sm-5  form-group pull-right top_search">
-               <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for...">
-                  <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">Go!</button>
-                  </span>
-               </div>
-            </div>
-         </div>
       </div>
       <div class="clearfix"></div>
       <div class="row">
          <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
-               <div class="x_title">
-                  <h2><a href="{{ route('driver.list') }}">Vehicle</a> / {{ $vehicle_Data['vehicle_name']  }} - <span class="badge badge-info" style="font-size:0.9rem;">{{ $vehicle_Data['vehicle_number'] }}</span> </h2>
-                  &nbsp;&nbsp;
+               <div class="x_title text-right">
                   <!-- Button trigger modal -->
                   <button type="button" class="btn btn-warning" title="Click here to Add Instalment" data-toggle="modal" data-target="#instalmentModal">
                   Add Instalment
                   </button>
-                  <ul class="nav navbar-right panel_toolbox">
-                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                     </li>
-                     <li><a class="close-link"><i class="fa fa-close"></i></a>
-                     </li>
-                  </ul>
                   <div class="clearfix"></div>
                </div>
                <!-- Modal -->
@@ -69,7 +58,7 @@
                           </div>
                          <div class="modal-content">
                            <div class="modal-header">
-                              <h5 class="modal-title" id="instalmentModalLabel">{{ $vehicle_Data['vehicle_name']  }} - <span class="badge badge-info" style="font-size:0.9rem;">{{ $vehicle_Data['vehicle_number'] }}</span></h5>
+                              <h5 class="modal-title" id="instalmentModalLabel">{{ $vehicle_Data['vehicle_name']  }} - <span>{{ $vehicle_Data['vehicle_number'] }}</span></h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                               </button>
@@ -145,26 +134,21 @@
                   <div class="row">
                      <div class="col-sm-12">
                         <div class="card-box table-responsive">
-                           <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
+                           <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap bulk-action" cellspacing="0" width="100%">
                               <thead>
-                                 <th>
-                                    <th><input type="checkbox" id="check-all" ></th>
-                                    </th>
-                                    <th>Sn</th>
-                                    <th>Instalment Month</th>
-                                    <th>Instalment Paid Date</th>
-                                    <th>Remaining vehicle installment</th>
-                                    <th>Due Amount</th>
-                                    <th>Action</th>
+                                 <th><input type="checkbox" id="check-all" ></th>
+                                 <th>Sn</th>
+                                 <th>Instalment Month</th>
+                                 <th>Instalment Paid Date</th>
+                                 <th>Remaining vehicle installment</th>
+                                 <th>Due Amount</th>
+                                 <th>Action</th>
                                  </tr>
                               </thead>
-                              
-                              @foreach($vehicle_Instalment_Data as $key => $vehicle_Data)
                               <tbody>
+                              @foreach($vehicle_Instalment_Data as $key => $vehicle_Data)
                                  <tr>
-                                    <td>
                                     <th><input type="checkbox" id="check-all" ></th>
-                                    </td>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $vehicle_Data->instalment_month }}</td>
                                     <td>{{ date('d-M-Y', strtotime($vehicle_Data->instalment_date)); }}</td> 
@@ -179,8 +163,9 @@
                                        </button>
                                     </td>
                                  </tr>
-                              </tbody>
                               @endforeach
+                              
+                              </tbody>
                            </table>
                         </div>
                      </div>
