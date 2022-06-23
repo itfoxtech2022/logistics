@@ -5,11 +5,12 @@
    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    <style>
       body{
-      background: url(https://cdn.pixabay.com/photo/2015/08/06/09/27/logistics-877567_1280.jpg) no-repeat center center fixed; 
+       background: url('assets/images/login-bg.png') center center fixed; 
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
-      background-size: cover;
+      background-size: inherit;
+      /*background: rgb(0 0 0 / 11%);*/
       font-family:'HelveticaNeue','Arial', sans-serif;
       }
       a{color:#579ccb;text-decoration: none;}
@@ -21,34 +22,17 @@
       .head{padding:40px 0px; 10px 0}
       .logo-active{fill: #579ccb !important;}
       #formWrapper{
-      background: rgba(0,0,0,.2); 
-      width:100%; 
-      height:100%; 
-      position: absolute; 
-      top:0; 
-      left:0;
-      transition:all .3s ease;}
-      .darken-bg{background: rgba(0,0,0,.5) !important; transition:all .3s ease;}
+          padding: 10px 20px;
+      }
+      /*.darken-bg{background: rgba(0,0,0,.5) !important; transition:all .3s ease;}*/
       div#form{
-      position: absolute;
-      width:360px;
-      height:320px;
-      height:auto;
-      background-color: #fff;
-      margin:auto;
-      border-radius: 5px;
-      padding:20px;
-      left:50%;
-      top:50%;
-      margin-left:-180px;
-      margin-top:-200px;
       }
       div.form-item{position: relative; display: block; margin-bottom: 40px;}
       input{transition: all .2s ease;}
       input.form-style{
       color:#579ccb;
       display: block;
-      width: 90%;
+      /* width: 90%; */
       height: 44px;
       padding: 5px 5%;
       border:1px solid #ccc;
@@ -90,71 +74,102 @@
       }
       input[type="submit"].login:hover{background-color: #fff; border:1px solid #579ccb; color:#579ccb; cursor:pointer;}
       input[type="submit"].login:focus{outline: none;}
+      
+        .login-box{
+          background: #fff;
+          /*box-shadow: 3px 3px 14px 0px #ddd;*/
+          padding: 0 16px 0px 0;
+          border-radius: 20px;
+          overflow: hidden;
+          box-shadow: -1px 2px 14px 0px #302f2f;
+        }
+        .border-left-1{
+            border-left: 1px solid #dee2e6!important;
+            box-shadow: 0px 0px 10px #ddd;
+        }
    </style>
    <body>
-      <div id="formWrapper">
-         @php if(isset($_COOKIE['login_email']) && isset($_COOKIE['login_pass']))
-         {
-         $login_email = $_COOKIE['login_email'];
-         $login_pass  = $_COOKIE['login_pass'];
-         $is_remember = "checked='checked'";
-         }
-         else{
-         $login_email ='';
-         $login_pass = '';
-         $is_remember = "";
-         }
-         @endphp
-         <form action="{{route('check.login')}}" method="POST">
-            @csrf
-            <div id="form">
-               <div class="logo">
-                  <h2>Silica Logistics</h2>
-               </div>
-               <div class="row justify-content-end mb-1">
-                  <div class="col-sm-12 float-right">
-                     @if(Session::has('flash_message_error'))
-                     <div class="alert alert-danger alert-dismissible p-2">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Error!</strong> {!! session('flash_message_error')!!}.
-                     </div>
-                     @endif
-                     @if(Session::has('flash_message_success'))
-                     <div class="alert alert-success alert-dismissible p-2">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Success!</strong> {!! session('flash_message_success')!!}.
-                     </div>
-                     @endif
-                  </div>
-               </div>
-               <div class="form-item">
-                  <p class="formLabel">Email</p>
-                  <input type="email" name="email" id="email" value="{{$login_email}}" class="form-style" autocomplete="off"/>
-                  @if ($errors->has('email'))
-                  <span class="text-danger">{{ $errors->first('email') }}</span>
-                  @endif
-               </div>
-               <div class="form-item">
-                  <p class="formLabel">Password</p>
-                  <input type="password" name="password" value="{{$login_pass}}" id="password" class="form-style" />
-                  @if ($errors->has('password'))
-                  <span class="text-danger">{{ $errors->first('password') }}</span>
-                  @endif
-                  <br>
-                  <div class="checkbox pull-right">
-                     <label>
-                     <input type="checkbox" name="rememberme" {{$is_remember}}> Remember me</label>
-                  </div>
-                  <p><a href="" ><small>Forgot Password ?</small></a></p>
-               </div>
-               <div class="form-item">
-                  <input type="submit" class="login pull-right" value="Log In">
-                  <div class="clear-fix"></div>
+      
+       <section class="d-flex justify-content-center align-items-center h-100">
+            <div class="container">
+            <div class="row justify-content-center g-0">
+               <div class="col-lg-10 col-10">
+                   <div class="login-box">
+                       <div class="row justify-content-center g-0">
+                        <div class="col-sm-7 d-lg-block d-none">
+                            <img class="img-fluid" src="https://cdn.pixabay.com/photo/2015/08/06/09/27/logistics-877567_1280.jpg" alt="login Image">
+                        </div>
+                        <div class="col-lg-5 border-left border-left-1">
+                            <div id="formWrapper">
+                                 @php if(isset($_COOKIE['login_email']) && isset($_COOKIE['login_pass']))
+                                 {
+                                 $login_email = $_COOKIE['login_email'];
+                                 $login_pass  = $_COOKIE['login_pass'];
+                                 $is_remember = "checked='checked'";
+                                 }
+                                 else{
+                                 $login_email ='';
+                                 $login_pass = '';
+                                 $is_remember = "";
+                                 }
+                                 @endphp
+                                 <form action="{{route('check.login')}}" method="POST">
+                                    @csrf
+                                    <div id="form">
+                                       <div class="logo">
+                                          <h2>Silica Logistics</h2>
+                                       </div>
+                                       <div class="row justify-content-end mb-1">
+                                          <div class="col-sm-12 float-right">
+                                             @if(Session::has('flash_message_error'))
+                                             <div class="alert alert-danger alert-dismissible p-2">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <strong>Error!</strong> {!! session('flash_message_error')!!}.
+                                             </div>
+                                             @endif
+                                             @if(Session::has('flash_message_success'))
+                                             <div class="alert alert-success alert-dismissible p-2">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <strong>Success!</strong> {!! session('flash_message_success')!!}.
+                                             </div>
+                                             @endif
+                                          </div>
+                                       </div>
+                                       <div class="form-item">
+                                          <p class="formLabel">Email</p>
+                                          <input type="email" name="email" id="email" value="{{$login_email}}" class="form-style form-control" autocomplete="off"/>
+                                          @if ($errors->has('email'))
+                                          <span class="text-danger">{{ $errors->first('email') }}</span>
+                                          @endif
+                                       </div>
+                                       <div class="form-item">
+                                          <p class="formLabel">Password</p>
+                                          <input type="password" name="password" value="{{$login_pass}}" id="password" class="form-style form-control" />
+                                          @if ($errors->has('password'))
+                                          <span class="text-danger">{{ $errors->first('password') }}</span>
+                                          @endif
+                                          <br>
+                                          <div class="checkbox pull-right">
+                                             <label>
+                                             <input type="checkbox" name="rememberme" {{$is_remember}}> Remember me</label>
+                                          </div>
+                                          <p><a href="" ><small>Forgot Password ?</small></a></p>
+                                       </div>
+                                       <div class="form-item">
+                                          <input type="submit" class="login pull-right" value="Log In">
+                                          <div class="clear-fix"></div>
+                                       </div>
+                                    </div>
+                                 </form>
+                            </div>
+                        </div>
+                   </div>
+                   </div>
                </div>
             </div>
-         </form>
-      </div>
-   </body>
+        </div>
+       </section>
+     </body>
 </html>
 <script>
    $(document).ready(function(){

@@ -1,0 +1,31 @@
+li.breadcrumb-item {
+    font-size: 16px;
+    font-weight: 500;
+}
+.alert-dismissible .close {
+    top: -5px;
+}
+.upload {
+    border: 2px dashed rgba(0, 0, 0, 0.532);
+    border-radius: 15px;
+    margin: 15px;
+    padding: 10px;
+    width: 80%;
+    justify-content: center;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.518);
+    }
+    .error {
+    margin-top:0px !important;
+    color:#dc3545
+    }
+@media (max-width: 767px) {
+    .download-btn .btn{
+        font-size: 0.7rem !important;
+    }
+    .info-number .badge {
+        font-size: 9px;
+        line-height: 9px;
+        right: 120px;
+        top: 6px;
+    }
+}

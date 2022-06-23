@@ -1,6 +1,6 @@
 <!-- footer content -->
  <footer>
-    <div class="pull-right">
+    <div class="text-center">
        Silica Logistics by <a href="https://itfoxtech.com/" target="_blank">ITFOX TECHNOLOGIES.</a>
     </div>
     <div class="clearfix"></div>

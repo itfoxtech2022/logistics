@@ -156,7 +156,8 @@ class DriverController extends Controller
             else{
             $driverID = Crypt::decrypt($id);
             $driver = Driver::findOrFail($driverID);
-            return view('driver.edit', ('driver'));
+            
+            return view('driver.edit', compact('driver'));
             }
         }
 
