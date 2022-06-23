@@ -223,7 +223,7 @@ $('#instalmentForm').on('submit',function(event){
       },
       //Display Response Success Message
       success: function(response){
-      $('#res_message').show();
+        $('#res_message').show();
         $('#res_message').html(response.msg);
         $('#msg_div').removeClass('d-none');
  

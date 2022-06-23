@@ -25,7 +25,7 @@
             <h3>Driver Profile</h3>
          </div>
          <div class="title_right">
-            <div class="col-md-5 col-sm-5  form-group pull-right top_search">
+            <div class="col-md-5 col-sm-5 form-group pull-right top_search">
                <div class="input-group">
                   <input type="text" class="form-control" placeholder="Search for...">
                   <span class="input-group-btn">
@@ -86,7 +86,6 @@
                             <p>Pan Card</p>&nbsp;&nbsp;
                            <input type="file" accept="image/*" id="imgInp2" name="pan_card"><br>
                            <img id="blah2" src="https://thenitintech.com/wp-content/uploads/PAN-Card-e1641740931340.jpeg" alt="Please upload Pan Card"  width="180" height="90"/>
-                          
                         </div>
                         <div class="col-sm upload">
                             <p>Driving License</p>&nbsp;&nbsp;
