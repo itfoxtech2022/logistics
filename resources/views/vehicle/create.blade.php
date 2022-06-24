@@ -73,6 +73,15 @@
                               </div>
                            </div>
                         </div>
+                        <div class="col-lg-4">
+                           <div class="form-group">
+                           <label class="col-form-label label-align">Vehicle Instalment Cost
+                           </label>
+                           <div class="">
+                              <input type="text" name="vehicle_total_instalment_cost" class="form-control">
+                           </div>
+                        </div>
+                        </div>
                      </div>
                      <br><br>
                      <div class="row">

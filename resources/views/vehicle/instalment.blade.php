@@ -17,9 +17,9 @@
             <!-- <h3>Vehicle Instalments</h3> -->
             <nav aria-label="breadcrumb bg-transparent">
                <ol class="breadcrumb">
-                  <li class="breadcrumb-item fs-3">Vehicle Profile</li>
                   <li class="breadcrumb-item fs-3">Instalment</li>
                   <li class="breadcrumb-item active" aria-current="page">{{ $vehicle_Data['vehicle_name']  }} - <span>{{ $vehicle_Data['vehicle_number'] }}</span> </li>
+                  <li class="breadcrumb-item active" aria-current="page"><b>Total Instalment Cost : (₹)<span>{{ $vehicle_Data['vehicle_total_instalment_cost'] }}</span></b></li>
                </ol>
             </nav>
             <div class="col-sm-12 float-right">
@@ -65,6 +65,7 @@
                            </div>
                            <div class="modal-body" style="width:620px;">
                               <input type="hidden" name="vehicle_id" id="vehicle_id" value="{{ $vehicle_Data['id']  }}">
+                              <input type="hidden" name="total_instalment" id="total_instalment" value="{{ $vehicle_Data['vehicle_total_instalment_cost'] }}">
                               <div class="item form-group">
                                  <label class="col-form-label col-md-3 col-sm-3 label-align">Instalment Price
                                  <span class="required" style="color:red">*</span>
@@ -72,9 +73,6 @@
                                  <div class="col-md-6 col-sm-6">
                                     <input type="text" name="instalment_price"  id="instalment_price" value="{{ old('instalment_price') }}" required="required" class="form-control">
                                  </div>
-                                 @error('instalment_price')
-                                 <div class="error mt-0">{{$message}}</div>
-                                 @enderror
                               </div>
                               <div class="item form-group">
                                  <label class="col-form-label col-md-3 col-sm-3 label-align">Instalment Month
@@ -96,9 +94,6 @@
                                     <option value="November">November</option>
                                     <option value="December">December</option>
                                     </select>
-                                    @error('instalment_month')
-                                    <div class="error mt-0">{{$message}}</div>
-                                    @enderror
                                  </div>
                               </div>
                               <div class="item form-group">
@@ -130,7 +125,86 @@
                      </form>
                   </div>
                </div>
-               <div class="x_content">
+                  <!-- Edit Instalment Modal -->
+                 <div class="modal fade" id="EditinstalmentModalLabel" tabindex="-1" role="dialog" aria-labelledby="EditinstalmentModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                     <form data-parsley-validate class="form-horizontal form-label-left" action="{{route('update.vehicle.instalment')}}" method="POST">
+                        @csrf
+                        <div class="alert alert-success d-none" id="msg_div">
+                           <span id="res_message"></span>
+                          </div>
+                         <div class="modal-content">
+                           <div class="modal-header">
+      
+                              <h5 class="modal-title" id="instalmentModalLabel">{{ $vehicle_Data['vehicle_name']  }} - <span>{{ $vehicle_Data['vehicle_number'] }}</span></h5>
+                              
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                           </div>
+                           <div class="modal-body" style="width:620px;">
+                             <input type="hidden" name="inst_id" id="inst_id" value="">
+                              <input type="hidden" name="vehicle_id" id="" value="{{ $vehicle_Data['id']  }} ">
+                              <input type="hidden" name="total_inst" id="total_inst" value="{{ $vehicle_Data['vehicle_total_instalment_cost'] }}">
+                              <div class="item form-group">
+                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Instalment Price
+                                 <span class="required" style="color:red">*</span>
+                                 </label>
+                                 <div class="col-md-6 col-sm-6">
+                                    <input type="text" name="instalment_price"  id="inst_price" value="" required="required" class="form-control">
+                                 </div>
+                                
+                              </div>
+                              <div class="item form-group">
+                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Instalment Month
+                                 <span class="required" style="color:red">*</span>
+                                 </label>
+                                 <div class="col-md-6 col-sm-6 ">
+                                    <select class="form-control" name="instalment_month"  id="inst_month" required="required">
+                                    <option>Select Month</option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                    </select>
+                                   
+                                 </div>
+                              </div>
+                              <div class="item form-group">
+                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Instalment Date
+                                 <span class="required" style="color:red">*</span>
+                                 </label>
+                                 <div class="col-md-6 col-sm-6">
+                                    <input type="date" name="instalment_date"  id="inst_price_date" value="" required="required" class="form-control">
+                                 </div>
+                              </div>
+                              <div class="item form-group">
+                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Instalment Overdue
+                                 </label>
+                                 <div class="col-md-6 col-sm-6">
+                                    <input type="text" name="instalment_overdue"  id="inst_overdue" value="" class="form-control">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="modal-footer">
+                              <div class="col-md-6 col-sm-6 offset-md-5">
+                                 <button class="btn btn-danger" type="reset">Reset</button>
+                                 <button type="submit" class="btn btn-success">Update</button>
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+                <div class="x_content">
                   <div class="row">
                      <div class="col-sm-12">
                         <div class="card-box table-responsive">
@@ -139,6 +213,7 @@
                                  <th><input type="checkbox" id="check-all" ></th>
                                  <th>Sn</th>
                                  <th>Instalment Month</th>
+                                 <th>Instalment Paid</th>
                                  <th>Instalment Paid Date</th>
                                  <th>Remaining vehicle installment</th>
                                  <th>Due Amount</th>
@@ -151,21 +226,21 @@
                                     <th><input type="checkbox" id="check-all" ></th>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $vehicle_Data->instalment_month }}</td>
+                                    <td>{{ $vehicle_Data->instalment_price }}</td>
                                     <td>{{ date('d-M-Y', strtotime($vehicle_Data->instalment_date)); }}</td> 
                                     <td>{{ $vehicle_Data->remaining_vehicle_installment }}</td>
-                                    <td>{{ $vehicle_Data->instalment_overdue }}</td>
+                                    <td>{{ $vehicle_Data->instalment_overdue ?? '-' }}</td>
                                     <td>
-                                       <a href=""><button type="button" class="btn btn-warning btn-xs dt-edit" style="margin-right:5px;">
+                                       <button type="button" data-toggle="modal" data-target="#EditinstalmentModalLabel" value="{{ $vehicle_Data->id }}" class="btn btn-warning btn-xs editbtn" style="margin-right:5px;">
                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                       </button></a>
+                                       </button>
                                        <button type="button" class="btn btn-danger btn-xs dt-delete">
                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                        </button>
                                     </td>
                                  </tr>
                               @endforeach
-                              
-                              </tbody>
+                              </tbody> 
                            </table>
                         </div>
                      </div>
@@ -184,10 +259,33 @@
 <script src="{{asset('assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('assets/vendors/parsleyjs/dist/parsley.min.js')}}"></script>
 <script>
+// Edit instalment
+   $(document).ready(function(){
+      $(document).on('click','.editbtn',function(){
+         var inst_id = $(this).val();
+         $('#EditinstalmentModalLabel').modal('show');
+         $.ajax({
+            type:"GET",
+            url:"/vehicle-instalments-edit/"+inst_id,
+            success:function(response){
+               $('#inst_id').val(response.instalment.inst_id);
+               $('#inst_price').val(response.instalment.instalment_price);
+               $('#inst_price_date').val(response.instalment.instalment_date);
+               $('#inst_overdue').val(response.instalment.instalment_overdue);
+               $('#inst_month').val(response.instalment.instalment_month);
+               $('#inst_id').val(inst_id);
+            }
+         });
+      });
+   });
+</script>
+<script>
+// Add instalment
 $('#instalmentForm').on('submit',function(event){
     event.preventDefault();
     // Get Alll Text Box Id's
     vehicle_Id         = $('#vehicle_id').val();
+    total_instalment   = $('#total_instalment').val();
     instalment_Price   = $('#instalment_price').val();
     instalment_Month   = $('#instalment_month').val(); 
     instalment_Date    = $('#instalment_date').val();
@@ -200,6 +298,7 @@ $('#instalmentForm').on('submit',function(event){
       data:{
         "_token": "{{ csrf_token() }}",
         vehicle_Id:vehicle_Id,
+        total_instalment:total_instalment,
         instalment_Price:instalment_Price,
         instalment_Month:instalment_Month,
         instalment_Date:instalment_Date,
@@ -219,11 +318,7 @@ $('#instalmentForm').on('submit',function(event){
         },2000);
    },
   });
+  window.location.reload();
 });
-// .then(function(value) {
-//         if (value) {
-//          location.reload();
-//         }
-// });
 </script>
 @endsection 

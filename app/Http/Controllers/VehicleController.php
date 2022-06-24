@@ -54,6 +54,7 @@ class VehicleController extends Controller
             $vehicle->vehicle_name      = $request->vehicle_name;
             $vehicle->vehicle_number    = $request->vehicle_number;
             $vehicle->vehicle_condition = $request->vehicle_condition;
+            $vehicle->vehicle_total_instalment_cost = $request->vehicle_total_instalment_cost;
             $vehicle->vehicle_rc        = $vehicle_rc;
             $vehicle->vehicle_insurance = $vehicle_insurance;
             $vehicle->vehicle_pollution = $vehicle_pollution;
@@ -117,6 +118,7 @@ class VehicleController extends Controller
             $vehicle->vehicle_name      = $request->vehicle_name;
             $vehicle->vehicle_number    = $request->vehicle_number;
             $vehicle->vehicle_condition = $request->vehicle_condition;
+            $vehicle->vehicle_total_instalment_cost = $request->vehicle_total_instalment_cost;
             $vehicle->vehicle_rc        = $vehicle_rc;
             $vehicle->vehicle_insurance = $vehicle_insurance;
             $vehicle->vehicle_pollution = $vehicle_pollution;
@@ -133,31 +135,47 @@ class VehicleController extends Controller
     #Manage Vehicle Instalments
     public function manageVehicleInstalment($id){
         $vehicleID = Crypt::decrypt($id);
-        $vehicle_Data = Vehicle::where('id',$vehicleID)->select('id','vehicle_name','vehicle_number')->first();
+        $vehicle_Data = Vehicle::where('id',$vehicleID)->select('id','vehicle_name','vehicle_number','vehicle_total_instalment_cost')->first();
         // $vehicle_Instalment_Data = VehicleInstalment::where('vehicle_id',$vehicleID)->with('VehicleData:id,vehicle_name,vehicle_number')->first();
         $vehicle_Instalment_Data = VehicleInstalment::where('vehicle_id',$vehicleID)->get();
         return view('vehicle.instalment',compact('vehicle_Instalment_Data','vehicle_Data'));
     }
 
     public function vehicleInstalmentStore(Request $request){
-        $request->validate([
-            'instalment_price' => 'required',
-            'instalment_month' => 'required',
-            'instalment_date'  => 'required',
-        ]);
         $vehicle_Instalment = new VehicleInstalment;
         $vehicle_Instalment->vehicle_id         = $request->vehicle_Id;
-        $vehicle_Instalment->total_vehicle_cost = '20000';
+        //$vehicle_Instalment->total_vehicle_cost = $request->total_instalment;
         $vehicle_Instalment->instalment_price   = $request->instalment_Price;
         $vehicle_Instalment->instalment_date    = $request->instalment_Date;
         $vehicle_Instalment->instalment_month   = $request->instalment_Month;
-        $vehicle_Instalment->remaining_vehicle_installment = '20000' - $request->instalment_Price;
+        $vehicle_Instalment->remaining_vehicle_installment = $request->total_instalment - $request->instalment_Price;
         $vehicle_Instalment->instalment_overdue = $request->instalment_Overdue;
         $vehicle_Instalment->save();
         if($vehicle_Instalment){
           $arr = array('msg' => 'Vehicle Instalment has been added Successfully.', 'status' => true);
       }
       return Response()->json($arr);
+    }
+
+    public function editVehicleInstalment($id){
+       // $instalmentID = Crypt::decrypt($id);
+        $vehicle_Instalment_Data = VehicleInstalment::find($id);
+        return response()->json([
+            'status' =>200,
+            'instalment' =>$vehicle_Instalment_Data,
+        ]);
+    }
+
+    public function vehicleInstalmentUpdate(Request $request){
+        $vehicle_Instalment = VehicleInstalment::find($request->inst_id);
+        $vehicle_Instalment->vehicle_id         = $request->vehicle_id;
+        $vehicle_Instalment->instalment_price   = $request->instalment_price;
+        $vehicle_Instalment->instalment_date    = $request->instalment_date;
+        $vehicle_Instalment->instalment_month   = $request->instalment_month;
+        $vehicle_Instalment->remaining_vehicle_installment = $vehicle_Instalment->remaining_vehicle_installment - $request->instalment_price;
+        $vehicle_Instalment->instalment_overdue = $request->instalment_overdue;
+        $vehicle_Instalment->save();   
+        return redirect()->back()->with('flash_message_success', 'Instalment updated Successfully'); 
     }
 }
 

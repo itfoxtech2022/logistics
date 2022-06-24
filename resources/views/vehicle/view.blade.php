@@ -53,6 +53,14 @@
                               </div>
                            </div>
                         </div>
+                        <div class="col-lg-4">
+                           <div class="form-group">
+                              <label class="col-form-label label-align">Vehicle Instalment Cost</label>
+                              <div class=" ">
+                                 <span class="form-control">{{ $vehicle->vehicle_total_instalment_cost ?? 'Not Available' }}</span>
+                              </div>
+                           </div>
+                        </div>
                      </div>
                      <br><br>
                      <div class="row">

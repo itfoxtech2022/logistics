@@ -17,7 +17,7 @@ class CreateVehiclesTable extends Migration
             $table->bigIncrements('id');
             $table->string('vehicle_name');
             $table->string('vehicle_number');
-            $table->double('vehicle_total_instalment_cost',8,2)->nullable();
+            $table->float('vehicle_total_instalment_cost')->nullable();
             $table->string('vehicle_rc')->nullable();
             $table->string('vehicle_insurance')->nullable();
             $table->string('vehicle_pollution')->nullable();

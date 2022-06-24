@@ -1,9 +1,6 @@
 @extends('layouts.master')
 @section('title','Admin | Edit Vehicle Profile')
 @section('content')
-<style>
-   
-</style>
 <!-- page content -->
 <div class="right_col" role="main">
    <div class="">
@@ -75,9 +72,15 @@
                            </div>
                         </div>
                         </div>
-                     
-                     
-                     
+                        <div class="col-lg-4">
+                           <div class="form-group">
+                           <label class="col-form-label label-align">Vehicle Instalment Cost
+                           </label>
+                           <div class="">
+                              <input type="text" name="vehicle_total_instalment_cost" value="{{ $vehicle->vehicle_total_instalment_cost }}" class="form-control">
+                           </div>
+                        </div>
+                        </div>
                      <br><br>
                      <div class="row">
                         <div class="col-sm upload">

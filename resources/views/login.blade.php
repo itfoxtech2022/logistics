@@ -32,7 +32,7 @@
       input.form-style{
       color:#579ccb;
       display: block;
-      /* width: 90%; */
+      width: 90%;
       height: 44px;
       padding: 5px 5%;
       border:1px solid #ccc;
@@ -93,10 +93,10 @@
        <section class="d-flex justify-content-center align-items-center h-100">
             <div class="container">
             <div class="row justify-content-center g-0">
-               <div class="col-lg-10 col-10">
+               <div class="col-lg-10">
                    <div class="login-box">
                        <div class="row justify-content-center g-0">
-                        <div class="col-sm-7 d-lg-block d-none">
+                        <div class="col-sm-7">
                             <img class="img-fluid" src="https://cdn.pixabay.com/photo/2015/08/06/09/27/logistics-877567_1280.jpg" alt="login Image">
                         </div>
                         <div class="col-lg-5 border-left border-left-1">
@@ -137,14 +137,14 @@
                                        </div>
                                        <div class="form-item">
                                           <p class="formLabel">Email</p>
-                                          <input type="email" name="email" id="email" value="{{$login_email}}" class="form-style form-control" autocomplete="off"/>
+                                          <input type="email" name="email" id="email" value="{{$login_email}}" class="form-style" autocomplete="off"/>
                                           @if ($errors->has('email'))
                                           <span class="text-danger">{{ $errors->first('email') }}</span>
                                           @endif
                                        </div>
                                        <div class="form-item">
                                           <p class="formLabel">Password</p>
-                                          <input type="password" name="password" value="{{$login_pass}}" id="password" class="form-style form-control" />
+                                          <input type="password" name="password" value="{{$login_pass}}" id="password" class="form-style" />
                                           @if ($errors->has('password'))
                                           <span class="text-danger">{{ $errors->first('password') }}</span>
                                           @endif

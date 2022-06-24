@@ -76,8 +76,7 @@
                            <input type="file" accept="image/*" id="imgInp3" name="driving_license"><br>
                            <div class="text-center mt-2">
                               <img id="blah3" src="https://media.istockphoto.com/vectors/driver-license-with-male-photo-identification-or-id-card-template-vector-id1073597286?k=20&m=1073597286&s=612x612&w=0&h=mZZD51mPK3MD8TLKBtUAcTewBIaHeRCr1HfWu9Dy974=" alt="Please upload Driving License"  width="180" height="90" class="img-fluid"/>
-                       
-                           </div>
+                        </div>
                         </div>
                      </div>
                      <div class="ln_solid"></div>
