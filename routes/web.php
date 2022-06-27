@@ -51,3 +51,4 @@ Route::get('vehicle-instalments-manage/{id}',[VehicleController::class,'manageVe
 Route::post('vehicle-instalments-store',[VehicleController::class,'vehicleInstalmentStore'])->name('store.vehicle.instalment');
 Route::get('vehicle-instalments-edit/{id}',[VehicleController::class,'editVehicleInstalment'])->name('edit.vehicle.instalment');
 Route::post('vehicle-instalments-update/',[VehicleController::class,'vehicleInstalmentUpdate'])->name('update.vehicle.instalment');
+Route::get('vehicle-file-export', [VehicleController::class, 'vehicleFileExport'])->name('vehicleFile-export');

@@ -9,6 +9,7 @@ use File;
 use App\Models\Vehicle;
 use App\Models\VehicleInstalment;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\VehicleExport;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
@@ -177,6 +178,10 @@ class VehicleController extends Controller
         $vehicle_Instalment->save();   
         return redirect()->back()->with('flash_message_success', 'Instalment updated Successfully'); 
     }
+
+    public function vehicleFileExport(){
+        return Excel::download(new VehicleExport, 'vehicle-collection.xlsx');
+    } 
 }
 
 

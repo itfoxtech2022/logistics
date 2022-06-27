@@ -41,27 +41,13 @@
          <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                <div class="x_title">
-
-                    <form action="{{ route('driverFile-import') }}" method="POST" enctype="multipart/form-data" class="d-sm-flex d-block align-items-center justify-content-between">
+                   <form action="{{ route('driverFile-import') }}" method="POST" enctype="multipart/form-data" class="d-sm-flex d-block align-items-center justify-content-between">
                     @csrf
-                    <div class="form-group mb-0" style="max-width: 600px;">
-                        <div class="custom-file text-left">
-                            <input type="file" name="file" class="custom-file-input form-control" >
-                            <label class="custom-file-label" for="customFile">Choose file</label>
-                            @error('file')
-                            <div class="error mt-0">{{$message}}</div>
-                            @enderror
-                        </div>
-                    </div>
                      <div class="mt-2 text-right w-100  download-btn">
-                        <a href="{{ url('/uploads/driver/aadhar/Import_driver_sample_file.xlsx') }}" download src="{{ url('/uploads/driver/aadhar/Import_driver_sample_file.xlsx') }}">
-                        <button class="btn btn-warning btn-sm" type="button">Download Sample File</button></a>
-                        <button class="btn btn-primary btn-sm">Import data</button>
-                        <a class="btn btn-success btn-sm" href="{{ route('driverFile-export') }}">Export data</a>
+                        <a class="btn btn-success btn-sm" href="{{ route('vehicleFile-export') }}">Export data</a>
                      </div>
-                   
                 </form>
-                  <div class="clearfix"></div>
+               <div class="clearfix"></div>
                </div>
                <div class="x_content">
                   <div class="row">
