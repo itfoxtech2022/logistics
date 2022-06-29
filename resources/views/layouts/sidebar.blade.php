@@ -146,16 +146,11 @@
                 <!-- /sidebar menu -->
                 <!-- /menu footer buttons -->
                 <div class="sidebar-footer hidden-small">
-                   <a data-toggle="tooltip" data-placement="top" title="Settings">
+                   <a  href="{{ route('adminaccount.setting') }}" data-toggle="tooltip" data-placement="top" title="Settings">
                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                    </a>
-                   <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                   <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                   </a>
-                   <a data-toggle="tooltip" data-placement="top" title="Lock">
-                   <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                   </a>
-                   <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                  
+                   <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{route('admin.logout')}}">
                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                    </a>
                 </div>
@@ -175,12 +170,8 @@
                          <img src="{{asset('assets/images/img.jpg')}}" alt="">{{ Auth::user()->name ?? '' }}
                          </a>
                          <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                            <a class="dropdown-item"  href="javascript:;">
-                            <span class="badge bg-red pull-right">50%</span>
-                            <span>Settings</span>
-                            </a>
-                            <a class="dropdown-item"  href="javascript:;">Help</a>
+                            <a class="dropdown-item"  href="{{ route('adminaccount.setting') }}">Profile Setting</a>
+                           <a class="dropdown-item"  href="javascript:;">Help</a>
                             <a class="dropdown-item"  href="{{route('admin.logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                          </div>
                       </li>
@@ -210,7 +201,7 @@
                                <span class="time">3 mins ago</span>
                                </span>
                                <span class="message">
-                               Film festivals used to be do-or-die moments for movie makers. They were where...
+                               Film festivals used to be do-or-die moments f or movie makers. They were where...
                                </span>
                                </a>
                             </li>
@@ -224,7 +215,7 @@
                                <span class="message">
                                Film festivals used to be do-or-die moments for movie makers. They were where...
                                </span>
-                               </a>
+                               </a> 
                             </li>
                             <li class="nav-item">
                                <a class="dropdown-item">

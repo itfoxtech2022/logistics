@@ -112,12 +112,10 @@ class DriverController extends Controller
                 $aadhar_img = $request->old_driver_aadhar ?? NULL;
                 }
                 #Handle Pan card upload
-                if($request->hasfile('pan_card'))
-                {
+                if($request->hasfile('pan_card')){
                 #Get Image Path from Folder and Delete if Exist
                 $destination = 'uploads/driver/pancard/'.$driver_Docs->driver_pan;
-                if(File::exists($destination))
-                {
+                if(File::exists($destination)){
                     File::delete($destination);
                 }
                 $name = uniqid() . '_' . time(). '.' . $request->pan_card->getClientOriginalExtension();

@@ -61,8 +61,7 @@ class AdminController extends Controller
     #Password Reset
     public function adminPassResetUpdate(Request $request, $token = null)
     {
-        if ($token)
-        {
+        if ($token){
             if ($request->isMethod('post')){
 
                 $validatedData = $request->validate(['new_password' => 'required|min:6', 'new_confirm_password' => 'required|min:6|same:new_password', ]);
@@ -80,7 +79,7 @@ class AdminController extends Controller
             }
             else{
                 return view('admin.passwordresetupdate', compact('token'));
-            }
+            } 
         }
     }
 
@@ -88,11 +87,50 @@ class AdminController extends Controller
         return view('dashboard');
     }
 
-    public function logout()
-    {
-        Session::forget('admin_session');
-        Auth::logout();
-        return redirect('/')->with('flash_message_success', 'You are logged Out');
+    #Admin Profile Setting
+    public function ProfileSetting(){
+            $adminData = auth()->user();
+            return view('profile.accountSetting',compact('adminData'));
     }
+
+    public function ProfileSettingUpdate(Request $request){
+        $this->validate($request, ['name' => 'required', 'email' => 'required|email'], 
+        ['name.required' => 'Name field can not be empty value.', 'email.required' => 'Email field can not be empty value.']);
+            $adminData = User::find(Auth::user()->id);
+            $adminData->name    = $request->name;
+            $adminData->email   = $request->email;
+            
+            if($request->hasfile('profile')){
+            $name = uniqid() . '_' . time(). '.' . $request->profile->getClientOriginalExtension();
+            $path = public_path() .'/uploads/admin/profile';
+            $request->profile->move($path, $name);
+            $filename = $name;
+            }else{
+                $filename = $request->current_image;
+            }
+                $adminData->profile=$filename;
+                $adminData->save();
+                return redirect()->back()->with('flash_message_success','Profile updated Successfully.');
+        }
+
+        public function credentialSetting(Request $request){
+            #Validate Request with custom Messages
+            $this->validate($request, ['current_password' => 'required|min:5','new_password' => 'required|min:5|same:new_confirm_password'], 
+            ['current_password.required' => 'Password field can not be empty value.', 'password.min' => 'Password field at-least 5 characters']);
+
+            $adminCredential = User::find(Auth::user()->id);
+            if (!Hash::check($request->current_password, $adminCredential->password)) {
+                return redirect()->back()->with('flash_message_error','Error! Old password is incorrect');
+            }
+            $adminCredential->password = Hash::make($request->new_password);
+            $adminCredential->save();
+            return redirect()->back()->with('flash_message_success','Your Password updated Successfully.');
+        }
+
+        public function logout(){
+            Session::forget('admin_session');
+            Auth::logout();
+            return redirect('/')->with('flash_message_success', 'You are logged Out');
+        }
 }
 

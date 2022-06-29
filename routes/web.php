@@ -29,6 +29,11 @@ Route::post('/check-admin-login', [AdminController::class, 'adminLogin'])->name(
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('/admin-logout', [AdminController::class, 'logout'])->name('admin.logout');
 
+#Profile Setting  
+Route::get('/profile-settings', [AdminController::class, 'ProfileSetting'])->name('adminaccount.setting');
+Route::post('/profile-settings-update', [AdminController::class, 'ProfileSettingUpdate'])->name('adminaccountupdate.setting');
+Route::post('/account-credential-update', [AdminController::class, 'credentialSetting'])->name('admincredential.update');
+
 #Manage Driver Profiles
 Route::any('driver-profile-store',[DriverController::class,'driverProfileStore'])->name('driver.store');
 Route::get('driver-profile-list',[DriverController::class,'driverProfileList'])->name('driver.list');

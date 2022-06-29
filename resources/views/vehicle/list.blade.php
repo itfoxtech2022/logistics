@@ -73,10 +73,10 @@
                                     <td>{{ $vehicle->vehicle_name }}</td>
                                     <td>{{ $vehicle->vehicle_number }}</td>
                                     <td>
-                                        @if($vehicle->vehicle_condition == 'Expired Soon')
-                                        <span class="badge badge-danger" style="font-size:0.8rem;">{{ $vehicle->vehicle_condition }}</span>
-                                        @else
-                                        <span class="badge badge-info" style="font-size:0.8rem;">{{ $vehicle->vehicle_condition }}</span>
+                                    @if($vehicle->vehicle_condition == 'Expired Soon')
+                                    <span class="badge badge-danger" style="font-size:0.8rem;">{{ $vehicle->vehicle_condition }}</span>
+                                    @else
+                                    <span class="badge badge-info" style="font-size:0.8rem;">{{ $vehicle->vehicle_condition }}</span>
                                     @endif
                                     </td>
                                     <td>{{  date('j \\ F Y', strtotime($vehicle->created_at)) }}</td>
