@@ -6,7 +6,6 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\TransportController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,4 +59,5 @@ Route::post('vehicle-instalments-update/',[VehicleController::class,'vehicleInst
 Route::get('vehicle-file-export', [VehicleController::class, 'vehicleFileExport'])->name('vehicleFile-export');
 
 #Manage Transport
-Route::get('create-transport',[TransportController::class,'createTransport'])->name('create.transport');
+Route::get('create-transport-order',[TransportController::class,'createTransport'])->name('create.transport');
+Route::get('store-transport-order',[TransportController::class,'storeTransport'])->name('store.transport');
