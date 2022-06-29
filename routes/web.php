@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\TransportController;
 
 
 /*
@@ -57,3 +58,6 @@ Route::post('vehicle-instalments-store',[VehicleController::class,'vehicleInstal
 Route::get('vehicle-instalments-edit/{id}',[VehicleController::class,'editVehicleInstalment'])->name('edit.vehicle.instalment');
 Route::post('vehicle-instalments-update/',[VehicleController::class,'vehicleInstalmentUpdate'])->name('update.vehicle.instalment');
 Route::get('vehicle-file-export', [VehicleController::class, 'vehicleFileExport'])->name('vehicleFile-export');
+
+#Manage Transport
+Route::get('create-transport',[TransportController::class,'createTransport'])->name('create.transport');
