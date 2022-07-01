@@ -23,6 +23,7 @@ class CreateTransportsTable extends Migration
             $table->string('dreiver_name');
             $table->string('code');
             $table->string('trip_type');
+            $table->date('trip_start_date');
             $table->string('client_name');
             $table->string('route_name'); 
             $table->string('route_distance');

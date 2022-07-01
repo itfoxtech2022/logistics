@@ -75,6 +75,32 @@
                         </div>
                         <div class="col-lg-4">
                            <div class="form-group">
+                              <label class="col-form-label label-align">Vehicle Model
+                                 <span class="required" style="color:red">*</span>
+                              </label>
+                              <div class="">
+                                 <input type="text" name="vehicle_model" value="{{ old('vehicle_model') }}" required="required" class="form-control">
+                                 @error('vehicle_model')
+                                 <div class="error mt-0">{{$message}}</div>
+                                 @enderror
+                           </div>
+                        </div>
+                        </div>
+                        <div class="col-lg-4">
+                           <div class="form-group">
+                              <label class="col-form-label label-align">Vehicle Type
+                                 <span class="required" style="color:red">*</span>
+                              </label>
+                              <div class="">
+                                 <input type="text" name="vehicle_type" value="{{ old('vehicle_type') }}" required="required" class="form-control">
+                                 @error('vehicle_type')
+                                 <div class="error mt-0">{{$message}}</div>
+                                 @enderror
+                           </div>
+                        </div>
+                        </div>
+                        <div class="col-lg-4">
+                           <div class="form-group">
                            <label class="col-form-label label-align">Vehicle Instalment Cost
                            </label>
                            <div class="">

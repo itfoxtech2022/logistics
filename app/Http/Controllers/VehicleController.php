@@ -18,8 +18,10 @@ class VehicleController extends Controller
     public function vehicleProfileStore(Request $request){
         if ($request->isMethod('post')){
             $request->validate([
-                'vehicle_name'  => 'required',
+                'vehicle_name'   => 'required',
                 'vehicle_number' => 'required',
+                'vehicle_model'  => 'required',
+                'vehicle_type'   => 'required'
             ]);
              #Handle Vehicle Rc upload
              if($request->hasfile('vehicle_rc'))
@@ -55,6 +57,8 @@ class VehicleController extends Controller
             $vehicle->vehicle_name      = $request->vehicle_name;
             $vehicle->vehicle_number    = $request->vehicle_number;
             $vehicle->vehicle_condition = $request->vehicle_condition;
+            $vehicle->vehicle_model     = $request->vehicle_model;
+            $vehicle->vehicle_type      = $request->vehicle_type; 
             $vehicle->vehicle_total_instalment_cost = $request->vehicle_total_instalment_cost;
             $vehicle->vehicle_rc        = $vehicle_rc;
             $vehicle->vehicle_insurance = $vehicle_insurance;
@@ -82,8 +86,10 @@ class VehicleController extends Controller
         if ($request->isMethod('post')){
             $vehicleID = Crypt::decrypt($id);
             $request->validate([
-                'vehicle_name'  => 'required',
+                'vehicle_name'   => 'required',
                 'vehicle_number' => 'required',
+                'vehicle_model'  => 'required',
+                'vehicle_type'   => 'required'
             ]);
              #Handle Vehicle Rc upload
              if($request->hasfile('vehicle_rc'))
@@ -119,6 +125,8 @@ class VehicleController extends Controller
             $vehicle->vehicle_name      = $request->vehicle_name;
             $vehicle->vehicle_number    = $request->vehicle_number;
             $vehicle->vehicle_condition = $request->vehicle_condition;
+            $vehicle->vehicle_model     = $request->vehicle_model;
+            $vehicle->vehicle_type      = $request->vehicle_type; 
             $vehicle->vehicle_total_instalment_cost = $request->vehicle_total_instalment_cost;
             $vehicle->vehicle_rc        = $vehicle_rc;
             $vehicle->vehicle_insurance = $vehicle_insurance;
@@ -182,6 +190,7 @@ class VehicleController extends Controller
     public function vehicleFileExport(){
         return Excel::download(new VehicleExport, 'vehicle-collection.xlsx');
     } 
+    
 }
 
 

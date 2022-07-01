@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Admin | Create Vehicle Transport Order')
+@section('title','Admin | Edit Vehicle Transport Order')
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <style>
@@ -14,7 +14,7 @@
             <nav aria-label="breadcrumb bg-transparent">
                <ol class="breadcrumb">
                   <li class="breadcrumb-item">Transport</li>
-                  <li class="breadcrumb-item active" aria-current="page">Add Details</li>
+                  <li class="breadcrumb-item active" aria-current="page">Edit Details</li>
                </ol>
             </nav>
          </div>
@@ -25,7 +25,8 @@
             <div class="x_panel">
                <div class="x_content">
                   <br />
-                  <form method="POST" action="{{route('store.transport')}}"  data-parsley-validate class="form-horizontal form-label-left">
+                  @php $id= Crypt::encrypt($transport->id); @endphp
+                  <form method="POST" action="{{route('update.transport',$id)}}"  data-parsley-validate class="form-horizontal form-label-left">
                      @csrf
                      <div class="row">
                         <div class="col-lg-4">
@@ -34,7 +35,7 @@
                                  <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="date" name="vouher_date" class="form-control" required="required">
+                                 <input type="date" name="vouher_date" value="{{ $transport->exp_start_date }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div>
@@ -44,7 +45,7 @@
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="text" name="voucher_type" class="form-control" required="required">
+                                 <input type="text" name="voucher_type" value="{{ $transport->voucher_type }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div>
@@ -54,7 +55,7 @@
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="number" name="voucher_number" class="form-control" required="required" min="0">
+                                 <input type="number" name="voucher_number" value="{{ $transport->voucher_number }}" class="form-control" required="required" min="0">
                               </div>
                            </div>
                         </div>
@@ -67,7 +68,7 @@
                                  <select class="search-autocomplete form-control" name="vehicle" required="required">
                                     <option>Select the Vehicle</option>
                                     @foreach($vehicles as $vehicle)
-                                    <option value="{{ $vehicle->id }}">{{ $vehicle->vehicle_name }} - {{ $vehicle->vehicle_number }}</option>
+                                    <option value="{{$vehicle->id}}" {{$vehicle->id == $transport->vehicle_id ? 'selected' : ''}}>{{ $vehicle->vehicle_name }} - {{ $vehicle->vehicle_number }}</option>
                                     @endforeach
                                  </select>
                               </div>
@@ -81,7 +82,7 @@
                               <select class="search-autocomplete form-control" name="driver">
                                  <option>Select Driver</option>
                                  @foreach($drivers as $driver)
-                                 <option value="{{$driver->driver_name}}">{{ $driver->driver_name }}</option>
+                                 <option value="{{$driver->driver_name}}" {{$driver->driver_name == $transport->dreiver_name ? 'selected' : ''}}>{{ $driver->driver_name }}</option>
                                  @endforeach
                                </select>
                            </div>
@@ -92,7 +93,7 @@
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="text" name="code" class="form-control" required="required">
+                                 <input type="text" name="code" value="{{ $transport->code }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div>
@@ -102,7 +103,7 @@
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="date" name="dl_expire" class="form-control" required="required">
+                                 <input type="date" name="dl_expire" value="{{ $transport->exp_end_date }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div>
@@ -110,24 +111,27 @@
                      <div class="ln_solid"></div>
                      <h5>Debit Details:-</h5>
                      <div class="feild-container">
+                        @foreach($transport->transportDetail as $detail)
                         <div class="data-row row align-items-end">  
+                       
                         <div class="col-lg-3">
                            <div class="form-group">
                               <label class="col-form-label label-align">Expense Breakup
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="text" name="expense_breakup[]" class="form-control" required="required">
+                                 <input type="text" name="expense_breakup[]"  value="{{ $detail->expense_brakup }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div>
+                       
                         <div class="col-lg-3">
                            <div class="form-group">
                               <label class="col-form-label label-align">Description
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="text" name="description[]" class="form-control" required="required">
+                                 <input type="text" name="description[]" value="{{ $detail->description }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div>
@@ -137,17 +141,18 @@
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="text" name="amount[]" class="form-control" required="required">
+                                 <input type="text" name="amount[]"  value="{{ $detail->amount }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div> 
                         <div class="input-group-btn col-lg-3 text-center">   
                            <button class="btn btn-success bs-add-button" type="button"><i class="fa fa-plus"></i> Add</button>  
                         </div>  
-                        </div>  
+                        </div> 
+                        @endforeach
                      </div>
                      <div class="ln_solid"></div>
-                     <h5>Bank Details:<input type="checkbox" id="bank_details-show" name="bank_details_check" value="1" class="ml-3" /></h5> 
+                     <h5>Bank Details:<input type="checkbox" id="bank_details-show" name="bank_details_check" {{ ($transport['bank_details_check']=="1") ? "checked" : "" }} value="{{ $transport->bank_details_check }}" class="ml-3" /></h5> 
                      <div id="bank-details" style="display:none">
                         <div class="row">
                            <div class="col-lg-3">
@@ -156,9 +161,9 @@
                                  <span class="required" style="color:red">*</span>
                                  </label>
                                  <div class="">
-                                    <input type="text" name="bank_name" class="form-control">
+                                    <input type="text" name="bank_name" value="{{ $transport->bank_name }}" class="form-control">
                                  </div>
-                              </div>
+                              </div> 
                            </div>
                            <div class="col-lg-3">
                               <div class="form-group">
@@ -166,7 +171,7 @@
                                  <span class="required" style="color:red">*</span>
                                  </label>
                                  <div class="">
-                                    <input type="text" name="account_number" class="form-control">
+                                    <input type="text" name="account_number" value="{{ $transport->ac_number }}" class="form-control">
                                  </div>
                               </div>
                            </div>
@@ -176,7 +181,7 @@
                                  <span class="required" style="color:red">*</span>
                                  </label>
                                  <div class="">
-                                    <input type="text" name="ifsc_code" class="form-control">
+                                    <input type="text" name="ifsc_code" value="{{ $transport->ifsc_code }}" class="form-control">
                                  </div>
                               </div>
                            </div>
@@ -186,7 +191,7 @@
                                  <span class="required" style="color:red">*</span>
                                  </label>
                                  <div class="">
-                                    <input type="text" name="branch_name" class="form-control">
+                                    <input type="text" name="branch_name" value="{{ $transport->branch_name }}" class="form-control">
                                  </div>
                               </div>
                            </div>
@@ -201,7 +206,7 @@
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="date" name="trip_start_date" class="form-control" required="required">
+                                 <input type="date" name="trip_start_date" value="{{ $transport->trip_start_date }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div>
@@ -211,7 +216,7 @@
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="text" name="trip_type" class="form-control" required="required">
+                                 <input type="text" name="trip_type" value="{{ $transport->trip_type }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div>
@@ -221,7 +226,7 @@
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="text" name="client_name" class="form-control" required="required">
+                                 <input type="text" name="client_name" value="{{ $transport->client_name }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div>
@@ -231,7 +236,7 @@
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="text" name="route_name" class="form-control" required="required">
+                                 <input type="text" name="route_name" value="{{ $transport->route_name }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div>
@@ -241,7 +246,7 @@
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="text" name="route_distance" class="form-control" required="required">
+                                 <input type="text" name="route_distance" value="{{ $transport->route_distance }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div>
@@ -251,7 +256,7 @@
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <input type="text" name="extimate_budget_fuel_qty" class="form-control" required="required">
+                                 <input type="text" name="extimate_budget_fuel_qty" value="{{ $transport->extimate_budget_fuel_qty }}" class="form-control" required="required">
                               </div>
                            </div>
                         </div>
@@ -261,7 +266,7 @@
                               <span class="required" style="color:red">*</span>
                               </label>
                               <div class="">
-                                 <textarea class="form-control" name="remark" rows="5" cols="5"></textarea required="required">
+                                 <textarea class="form-control" name="remark" rows="5" cols="5">{{ $transport->remark }}</textarea required="required">
                               </div>
                            </div>
                         </div>

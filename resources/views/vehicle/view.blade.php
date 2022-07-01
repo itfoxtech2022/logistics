@@ -47,6 +47,22 @@
                         </div>
                         <div class="col-lg-4">
                            <div class="form-group">
+                              <label class="col-form-label label-align">Vehicle Model</label>
+                              <div class=" ">
+                                 <span class="form-control">{{ $vehicle->vehicle_model }}</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-4">
+                           <div class="form-group">
+                              <label class="col-form-label label-align">Vehicle Type</label>
+                              <div class=" ">
+                                 <span class="form-control">{{ $vehicle->vehicle_type }}</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-4">
+                           <div class="form-group">
                               <label class="col-form-label label-align">Vehicle Condition</label>
                               <div class=" ">
                                  <span class="form-control">{{ $vehicle->vehicle_condition }}</span>

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Admin | Vehicle List')
+@section('title','Admin | Transport Invoice List')
 @section('content')
 <style>
 .error {
@@ -16,8 +16,8 @@
             <!-- <h3>Vehicle Profile</h3> -->
             <nav aria-label="breadcrumb bg-transparent">
                <ol class="breadcrumb">
-                  <li class="breadcrumb-item fs-3">Vehicle Profile</li>
-                  <li class="breadcrumb-item active" aria-current="page">List of Vehicle </li>
+                  <li class="breadcrumb-item fs-3">Transport</li>
+                  <li class="breadcrumb-item active" aria-current="page">List of Transport Invoices </li>
                </ol>
             </nav>
             <div class="col-sm-12 float-right">
@@ -41,13 +41,12 @@
          <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                <div class="x_title">
-                   <form action="{{ route('driverFile-import') }}" method="POST" enctype="multipart/form-data" class="d-sm-flex d-block align-items-center justify-content-between">
-                    @csrf
-                     <div class="mt-2 text-right w-100  download-btn">
-                        <a class="btn btn-success btn-sm" href="{{ route('vehicleFile-export') }}">Export data</a>
-                     </div>
-                </form>
-               <div class="clearfix"></div>
+                 
+                     <div class="mt-2 text-right w-100 download-btn">
+               
+                         <a class="btn btn-success btn-sm" href="{{ route('transport-export') }}" data-toggle="tooltip" data-placement="bottom" title="Export all the Transport Invoices Data in to the Excel Sheet">Export Invoices</a>
+                      </div>
+              <div class="clearfix"></div>
                </div>
                <div class="x_content">
                   <div class="row">
@@ -58,47 +57,44 @@
                                  <tr>
                                     <th><input type="checkbox" id="check-all" ></th>
                                     <th>Sn</th>
-                                    <th>Vehicle Name</th>
-                                    <th>Vehicle Number</th>
-                                    <th>Vehicle Model</th>
-                                    <th>Vehicle Type</th>
-                                    <th>Condition</th>
+                                    <th>Voucher number</th>
+                                    <th>Vch Date</th>
+                                    <th>Vehicle</th>
+                                    <th>Driver</th>
+                                    <th>Client</th>
+                                    <th>Route</th>
                                     <th>Action</th>
                                  </tr>
                               </thead>
                               <tbody>
-                              @foreach($vehicles_data as $key => $vehicle)
+                              @foreach($transports as $key => $transport)
                                  <tr>
                                     <th><input type="checkbox" id="check-all" ></th>
                                     <td>{{ $key+1 }}</td>
-                                    <td>{{ $vehicle->vehicle_name }}</td>
-                                    <td>{{ $vehicle->vehicle_number }}</td>
-                                    <td>{{ $vehicle->vehicle_model }}</td>
-                                    <td>{{ $vehicle->vehicle_type }}</td>
-                                    <td>
-                                    @if($vehicle->vehicle_condition == 'Expired Soon')
-                                    <span class="badge badge-danger" style="font-size:0.8rem;">{{ $vehicle->vehicle_condition }}</span>
-                                    @else
-                                    <span class="badge badge-info" style="font-size:0.8rem;">{{ $vehicle->vehicle_condition }}</span>
-                                    @endif
-                                    </td>
-                                    <td>
-                                       @php $vehicle_ID= Crypt::encrypt($vehicle->id); @endphp
-                                       <a href="{{ route('manage.vehicle.instalment',$vehicle_ID) }}"><button type="button" class="btn btn-success btn-xs dt-edit" style="margin-right:5px;"
-                                          data-toggle="tooltip" data-placement="bottom" title="View Instalment Details">
+                                    <td>{{ $transport->voucher_number }}</td>
+                                    <td>{{ date('j \\ F Y', strtotime($transport->exp_start_date)) }}</td>
+                                    <td>{{ $transport['vehicle']['vehicle_name'] }} - {{ $transport['vehicle']['vehicle_number'] }} - {{ $transport['vehicle']['vehicle_model'] }}</td>
+                                    <td>{{ $transport->dreiver_name }}</td>
+                                    <td>{{ $transport->client_name }}</td>
+                                    <td>{{ $transport->route_name }}</td>
+                                   <td>
+                                       @php $transportID= Crypt::encrypt($transport->id); @endphp
+                                       <a href="{{ route('view.transport',$transportID) }}"><button type="button" class="btn btn-success btn-xs dt-edit" style="margin-right:5px;"
+                                          data-toggle="tooltip" data-placement="bottom" title="View Transport Invoice Details">
                                         <span class="fa fa-file" aria-hidden="true"></span>
                                         </button></a>
-                                       <a href="{{ route('vehicle.view',$vehicle_ID) }}"><button type="button" class="btn btn-info btn-xs dt-edit" style="margin-right:5px;"
-                                          data-toggle="tooltip" data-placement="bottom" title="View Vehicle Profile">
-                                       <span class="fa fa-eye" aria-hidden="true"></span>
-                                       </button></a>
-                                       <a href="{{ route('vehicle.update',$vehicle_ID) }}"><button type="button" class="btn btn-warning btn-xs dt-edit" style="margin-right:5px;"
-                                          data-toggle="tooltip" data-placement="bottom" title="Edit Vehicle Details">
+            
+                                       <a href="{{ route('edit.transport',$transportID) }}"><button type="button" class="btn btn-warning btn-xs dt-edit" style="margin-right:5px;"
+                                          data-toggle="tooltip" data-placement="bottom" title="Edit Tranport Invoice Details">
                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                        </button></a>
-                                       <button type="button" class="btn btn-danger btn-xs dt-delete" data-toggle="tooltip" data-placement="bottom" title="Delete Vehicle Profile">
+                                       <a href="{{ route('export.transport',$transportID) }}"><button type="button" class="btn btn-warning btn-xs dt-edit" style="margin-right:5px;"
+                                          data-toggle="tooltip" data-placement="bottom" title="Export Pdf Tranport Invoice Details">
+                                       <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                                       </button></a>
+                                       {{-- <button type="button" class="btn btn-danger btn-xs dt-delete" data-toggle="tooltip" data-placement="bottom" title="Delete Vehicle Profile">
                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                       </button>
+                                       </button>  --}}
                                     </td>
                                  </tr>
                             @endforeach

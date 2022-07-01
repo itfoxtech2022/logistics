@@ -11,10 +11,6 @@ use App\Http\Controllers\TransportController;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
 Route::get('/', function () {
@@ -60,4 +56,10 @@ Route::get('vehicle-file-export', [VehicleController::class, 'vehicleFileExport'
 
 #Manage Transport
 Route::get('create-transport-order',[TransportController::class,'createTransport'])->name('create.transport');
-Route::get('store-transport-order',[TransportController::class,'storeTransport'])->name('store.transport');
+Route::post('store-transport-order',[TransportController::class,'storeTransport'])->name('store.transport');
+Route::get('list-transport-order',[TransportController::class,'listTransport'])->name('list.transport');
+Route::get('view-transport-order/{id}',[TransportController::class,'viewTransport'])->name('view.transport');
+Route::get('edit-transport-order/{id}',[TransportController::class,'editTransport'])->name('edit.transport');
+Route::post('update-transport-order/{id}',[TransportController::class,'updateTransport'])->name('update.transport');
+Route::get('export-transport-order-pdf/{id}',[TransportController::class,'exportPdfTransport'])->name('export.transport');
+Route::get('transprt-invoice-file-export', [TransportController::class, 'invoiceFileExport'])->name('transport-export');

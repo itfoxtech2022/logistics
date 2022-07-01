@@ -16,7 +16,7 @@ class VehicleExport implements FromCollection,WithHeadings,ShouldAutoSize,WithMa
     */
     public function collection()
     {
-        return Vehicle::select('id','vehicle_name','vehicle_number','vehicle_total_instalment_cost')->orderBy('vehicle_name')->get();
+        return Vehicle::select('id','vehicle_name','vehicle_number','vehicle_model','vehicle_type','vehicle_total_instalment_cost')->orderBy('vehicle_name')->get();
     }
 
     public function map($data): array
@@ -25,6 +25,8 @@ class VehicleExport implements FromCollection,WithHeadings,ShouldAutoSize,WithMa
         $data->id,
         $data->vehicle_name,
         $data->vehicle_number,
+        $data->vehicle_model,
+        $data->vehicle_type,
         $data->vehicle_total_instalment_cost
         ];
     }
@@ -35,7 +37,9 @@ class VehicleExport implements FromCollection,WithHeadings,ShouldAutoSize,WithMa
             '#',
             'Vehicle Name',
             'Vehicle Number',
-            'Vehicle total instalment cost'
+            'Vehicle Model',
+            'Vehicle Type',
+            'Vehicle Total Instalment cost'
         ];
     }
 

@@ -261,7 +261,7 @@
 <script>
 // Edit instalment
    $(document).ready(function(){
-      $(document).on('click','.editbtn',function(){
+      $(document).on('click','.editbtn',function(){   
          var inst_id = $(this).val();
          $('#EditinstalmentModalLabel').modal('show');
          $.ajax({

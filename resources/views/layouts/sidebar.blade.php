@@ -45,6 +45,13 @@
                               <li><a href="{{ route('vehicle.store') }}">Add</a></li>
                            </ul>
                         </li>
+                        <li>
+                           <a><i class="fa fa-file"></i>Transport Invoice<span class="fa fa-chevron-down"></span></a>
+                           <ul class="nav child_menu">
+                              <li><a href="{{ route('list.transport') }}">List</a></li>
+                              <li><a href="{{ route('create.transport') }}">Add</a></li>
+                           </ul>
+                        </li>
                          {{-- <li>
                             <a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
